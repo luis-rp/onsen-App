@@ -1,0 +1,26 @@
+<ons-page>
+	<h2 class="menu-title lessons-title"><i class="fa fa-bars" ng-click="menu.toggleMenu()" style="margin-right:10px;"></i>Select student to review his app</h2>
+	<h4>You must select only 10 students</h4>
+	<table class="student-list">
+		<tr>
+			<td>Student name</td>
+			<td>Action</td>
+			
+		</tr>
+		<tr ng-repeat="student in projStudents">
+			<td class="first-cell" ng-click="goToTeachCodingPage(student.data.ID)">
+				<img ng-if="student.data.users_profile_image" src="{{student.users_profile_image}}" class="comment_image"/>
+				<img ng-if="!student.data.users_profile_image" src="img/anon.gif" class="comment_image"/>
+				{{student.data.users_name}}
+			</td>
+			<td class="second-cell" align="center">
+			<button ng-if="student.data.status!='super_student'" data-id="{{student.data.ID}}" type="button">Approve</button>
+				
+			</td>
+		</tr>
+	</table>
+	<div class="new_user_holder">
+		<input type="text" ng-model="new_user.name" placeholder="New User's name">
+		<button ng-click="addNewUser()">Add new user</button>
+	</div>
+</ons-page>

@@ -1,0 +1,33 @@
+<ons-page>
+	<h2 class="menu-title"><i class="fa fa-bars" ng-click="menu.toggleMenu()" style="margin-right:10px;"></i>Edit app Item</h2>
+	<img src="img/green-top.jpg" class="select-proj-bg" style="top:0;"/>
+	<div class="tab-holder">
+		<div class="item-tab" ng-click="menuEditClickFunc()"><i class="fa fa-pencil"></i></div>
+		<div class="item-tab selected" style="float: right;margin-right: 70px;"><i class="fa fa-plus"></i></div>
+	</div>
+	<div style="margin-top:200px;"></div>
+	<div class="editFieldsListHolder">
+		<section>
+			<input type="text" class="text-input" ng-model="addNewItemName" placeholder="{{vocabulary[lang]['Profile page']}}" style="display: block; width: 75%">
+		</section>
+		<img ng-show="post.addNewItemImage" src="{{post.addNewItemImage}}" class="img-attach" ng-click="getPostPhotoDialog()"/>
+		<div ng-repeat="addField in addNewItemFields">
+			<section id="add-item-area" ng-if="checkFieldType(addField['type'],'google_map')">
+				<input type="text" class="text-input" ng-model="addField['value']['address']" placeholder="{{vocabulary[lang]['Address']}}" style="display: block; width: 75%">
+				<input type="text" class="text-input longitude" ng-model="addField['value']['lng']" placeholder="{{vocabulary[lang]['Longitude']}}" style="display: block; width: 37%; float:right; margin-right:13%;">
+				<input type="text" class="text-input latitude" ng-model="addField['value']['lat']" placeholder="{{vocabulary[lang]['Latitude']}}" style="display: block; width: 37%; float:right; margin-right:1%;">
+				<!--<button ng-click="getCurrentPositionFunc()">הוסף מיקום נוכחי</button>-->
+				<div style="clear:both;"></div>
+			</section>
+			<section ng-if="checkFieldType(addField['type'],'text')">
+				<input type="text" class="text-input" ng-model="addField['value']" placeholder="{{addField['label']}}" style="display: block; width: 75%">
+			</section>
+			<section ng-if="checkFieldType(addField['type'],'textarea')">
+				<textarea class="edit_item_map_holder text-input" ng-model="addField['value']" placeholder="{{addField['label']}}" style="display: block; width: 75%; min-height:150px;"></textarea>
+			</section>
+		</div>
+		<section>
+			<button ng-click="addItemFunc(addNewItemName, post.attachment_id)">{{vocabulary[lang]['Add post']}}</button>
+		</section>
+	</div>
+</ons-page>

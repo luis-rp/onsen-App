@@ -1,0 +1,26 @@
+<ons-page>
+	<img src="img/top-bg.jpg" style="width:100%;height: 45%;"></img>
+	<div id="logo">
+		<img src="img/lets-logo-w.png" style="width:100%;"></img>
+	</div>
+	<h1 class="first_page_heading">{{vocabulary[lang]['Build your application']}}</h1>
+<div class="button-bar" style="width:160px;margin:0 auto;margin-bottom: 20px;">
+  <div class="button-bar__item">
+    <input type="radio" name="segment-a" ng-click="changeLang('en')" value="en" checked>
+    <button class="button-bar__button">English</button>
+  </div>
+  <div class="button-bar__item">
+    <input type="radio" name="segment-a" ng-click="changeLang('hb')" value="hb">
+    <button class="button-bar__button">עִברִית</button>
+  </div>
+</div>
+	<button class="sign_button" style="background: #b2d454;" ng-click="menu.setMainPage('login.html', {closeMenu: true})">{{vocabulary[lang]['Login']}}</button>
+	<p class="or_class">- {{vocabulary[lang]['or']}} register as -</p>
+	<button class="sign_button" ng-click="joinClass()" style="margin-bottom:20px;">Student</button>
+	<section style="padding: 0 8px 8px">
+		<button class="sign_button" ng-click="createClass()">Teacher</button>
+	</section>
+	<!--<section style="padding: 0 8px 8px">
+		<ons-button modifier="large" ng-click="menu.setMainPage('login.html', {closeMenu: true})">Login</ons-button>
+	</section>-->
+</ons-page>

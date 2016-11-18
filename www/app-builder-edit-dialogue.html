@@ -1,0 +1,66 @@
+<ons-dialog cancelable>
+	<div>
+		<input ng-if="blockType=='pageBlock'" ng-model="blocks.pages[currentId].Title"></input>
+		<input ng-if="blockType=='pageTextBlock'" ng-model="blocks.pages[currentId].Elements[secondId].text"></input>
+		<input ng-if="blockType=='pageImageBlock'" ng-model="blocks.pages[currentId].Elements[secondId].url"></input>
+		<input ng-if="blockType=='pageFormsBlock'" ng-model="blocks.pages[currentId].Elements[secondId].name"></input>
+		<input ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='image'" ng-model="blocks.pages[currentId].Elements[secondId].elems[thirdId].data"></input>
+		<input ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='text'" ng-model="blocks.pages[currentId].Elements[secondId].elems[thirdId].data"></input>
+		<input ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='video-input'" ng-model="blocks.pages[currentId].Elements[secondId].elems[thirdId].data"></input>
+		<input ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='map'" ng-model="blocks.pages[currentId].Elements[secondId].elems[thirdId].data"></input>
+		<input ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='text-input'" ng-model="blocks.pages[currentId].Elements[secondId].elems[thirdId].data"></input>
+		<input ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='textarea'" ng-model="blocks.pages[currentId].Elements[secondId].elems[thirdId].data"></input>
+		<div ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='select'" class="dialog-list-holder">
+			<ul>
+				<input type="text" ng-model="optionData.value" placeholder="New option Value"></input><button ng-click="addElemOption()">+</button>
+				<li ng-repeat="(key,option) in blocks.pages[currentId].Elements[secondId].elems[thirdId].data">{{option}}<button ng-click="removeElemOption(key)" class="dialog-remove-option">-</button></li>
+			</ul>
+		</div>
+		<div ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='check-box'" class="dialog-list-holder">
+			<ul>
+				<input type="text" ng-model="optionData.value" placeholder="New option Value"></input><button ng-click="addElemOption()">+</button>
+				<li ng-repeat="(key,option) in blocks.pages[currentId].Elements[secondId].elems[thirdId].data">{{option}}<button ng-click="removeElemOption(key)" class="dialog-remove-option">-</button></li>
+			</ul>
+		</div>
+		<div ng-if="blockType=='pageFormsElemBlock'&&blocks.pages[currentId].Elements[secondId].elems[thirdId].type=='radio-select'" class="dialog-list-holder">
+			<ul>
+				<input type="text" ng-model="optionData.value" placeholder="New option Value"></input><button ng-click="addElemOption()">+</button>
+				<li ng-repeat="(key,option) in blocks.pages[currentId].Elements[secondId].elems[thirdId].data">{{option}}<button ng-click="removeElemOption(key)" class="dialog-remove-option">-</button></li>
+			</ul>
+		</div>
+		<input ng-if="blockType=='postsBlock'" ng-model="blocks.posts[currentId].Title"></input>
+		<input ng-if="blockType=='singleBlock'" ng-model="blocks.single[currentId].Title"></input>
+		<select ng-model="styleData.styleOption" class="style-option">
+			<option value="font-size">Font Size</option>
+			<option value="font-weight">Font Weight</option>
+			<option value="color">Text Colour</option>
+			<option value="background-color">Background Colour</option>
+			<!--<option value="background-image">Background Image</option>-->
+			<option value="border-radius">Border radius</option>
+		</select>
+		<div ng-if="styleData.styleOption=='font-size'||styleData.styleOption=='border-radius'" class="style-value">
+			<input type="number" ng-model="styleData.styleValue"></input>
+		</div>
+		<div ng-if="styleData.styleOption=='background-image'" class="style-value">
+			<input type="text" ng-model="styleData.styleValue"></input>
+		</div>
+		<div ng-if="styleData.styleOption=='background-color'||styleData.styleOption=='color'" class="style-value">
+			<input type="color" ng-model="styleData.styleValue"></input>
+		</div>
+		<div ng-if="styleData.styleOption=='font-weight'" class="style-value">
+			<select ng-model="styleData.styleValue">
+				<option value="normal">Normal</option>
+				<option value="bold">Bold</option>
+			</select>
+		</div>
+		<button ng-click="addStyleOption()">+</button>
+		<h2>Styles</h2>
+		<div class="dialog-list-holder">
+			<ul>
+				<li ng-repeat="(key,option) in styleData.styleArray">{{option.name}}:{{option.value}}<button ng-click="removeStyleOption(key)" class="dialog-remove-option">-</button></li>
+			</ul>
+		</div>
+	</div>
+	<button ng-click="saveChanges()">Save Changes</button>
+	<button ng-click="deleteBlock()">Delete block</button>
+</ons-dialog>

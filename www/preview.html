@@ -1,0 +1,6 @@
+<ons-page ng-controller="builderController">
+	<iframe id="preview_screen" data="{{iframeUrl}}" ng-src="{{iframeUrl}}" style="width:100%;height:100%;" align="left">
+		Ваш браузер не поддерживает плавающие фреймы!
+	</iframe>
+	<button class="back_from_prev" ng-click="menu.setMainPage('app-builder.html', {closeMenu: true})">Back</button>
+</ons-page>

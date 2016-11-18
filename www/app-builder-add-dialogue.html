@@ -1,0 +1,40 @@
+<ons-dialog cancelable>
+	<div class="builder-dialogue">
+		<select ng-if="blockFields.select" ng-model="dialogueData.blockCase" data-test="{{dialogueData.blockCase}}">
+			<option value="">- {{vocabulary[lang]['Select block type']}} -</option>
+			<option ng-repeat="(key,option) in blockFields.select" value="{{key}}">{{option}}</option>
+		</select>
+		<input ng-if="blockFields.blockCase[dialogueData.blockCase].name" ng-model="dialogueData.blockName" placeholder="{{blockFields.blockCase[dialogueData.blockCase].name}}"></input>
+		<select ng-if="blockFields.blockCase[dialogueData.blockCase].select" ng-model="dialogueData.blockOption" data-test="{{dialogueData.blockOption}}">
+			<option value="">- Select parent element -</option>
+			<option ng-if="blockFields.blockCase[dialogueData.blockCase].select=='form'" ng-repeat="(key,page) in blocks.pages" value="{{key}}">{{page['Title']}}</option>
+		</select>
+		<select ng-if="blockFields.blockCase[dialogueData.blockCase].select&&dialogueData.blockOption!=''" ng-model="dialogueData.blockText" data-test="{{dialogueData.blockOption}}">
+			<option value="">- Select parent element -</option>
+			<option ng-if="blockFields.blockCase[dialogueData.blockCase].select=='form'&&form['type']=='Form'" ng-repeat="(key,form) in blocks.pages[dialogueData.blockOption]['Elements']" value="{{key}}">{{form['name']}}</option>
+		</select>
+		<select ng-if="blockFields.blockCase[dialogueData.blockCase].selectForm" ng-model="dialogueData.blockOption" data-test="{{dialogueData.blockOption}}">
+			<option value="">- Select form element -</option>
+			<option ng-repeat="(key,elem) in blocks.pages[blocks.posts[currentId]['Page']]['Elements'][blocks.posts[currentId]['Form']]['elems']" value="{{key}}" ng-if="elem['type']!='image'&&elem['type']!='text'">{{elem['type']}} {{key}}</option>
+		</select>
+		<select ng-if="blockFields.blockCase[dialogueData.blockCase].selectSingleForm" ng-model="dialogueData.blockOption" data-test="{{dialogueData.blockOption}}">
+			<option value="">- Select form element -</option>
+			<option ng-repeat="(key,elem) in blocks.pages[blocks.posts[blocks.single[currentId]['Posts']]['Page']]['Elements'][blocks.posts[blocks.single[currentId]['Posts']]['Form']]['elems']" value="{{key}}" ng-if="elem['type']!='image'&&elem['type']!='text'">{{elem['type']}} {{key}}</option>
+		</select>
+		<select ng-if="blockFields.blockCase[dialogueData.blockCase].selectPosts" ng-model="dialogueData.blockOption" data-test="{{dialogueData.blockOption}}">
+			<option value="">- Select parent posts page -</option>
+			<option ng-repeat="(key,posts) in blocks.posts" value="{{key}}">{{posts['Title']}}</option>
+		</select>
+		<textarea ng-if="blockFields.blockCase[dialogueData.blockCase].text" ng-model="dialogueData.blockText" placeholder="{{blockFields.blockCase[dialogueData.blockCase].text}}"></textarea>
+		<div ng-if="blockFields.blockCase[dialogueData.blockCase].addOption">
+			<input type="text" ng-model="dialogueData.blockOption" placeholder="{{blockFields.blockCase[dialogueData.blockCase].addOption}}">
+			<button ng-click="addOption()">+</button>
+			<div class="dialog-list-holder">
+				<ul>
+					<li ng-repeat="(key,option) in dialogueData.blockOptions">{{option}}<button ng-click="removeOption(key)" class="dialog-remove-option">-</button></li>
+				</ul>
+			</div>
+		</div>
+		<button ng-click="addBlock(dialogueData.blockCase)">{{vocabulary[lang]['Add block']}}</button>
+	</div>
+</ons-dialog>

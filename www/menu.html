@@ -1,0 +1,62 @@
+	  <ons-list>
+		<ons-list-header class="list__header"></ons-list-header>
+		<ons-list-item ng-if="user_type=='student'" modifier="chevron" ng-click="menu.setMainPage('classes-list.html', {closeMenu: true})" style="background: #f8a772;color: #fff;">
+			{{vocabulary[lang]['Lessons']}}
+		</ons-list-item>
+		<ons-list-item ng-if="user_type=='teacher'" modifier="chevron" ng-click="menu.setMainPage('teacher-classes-list.html', {closeMenu: true})" style="background: #f8a772;color: #fff;">
+			{{vocabulary[lang]['Lessons']}}
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-if="user_type=='teacher'" ng-click="getUsersPerProject()" style="background:#f6f5f3;">
+			Users
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-if="user_type=='teacher'" ng-click="getUsersPerProjectToApprove()" style="background:#f6f5f3;">
+			Approve Users
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-if="user_type=='teacher'" ng-click="getProjectSwitchIds()" style="background:#f6f5f3;">
+			Switch project
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-click="menu.setMainPage('edit-layout.html', {closeMenu: true})" style="background:#f6f5f3;">
+			{{vocabulary[lang]['Edit apps layout']}}
+		</ons-list-item>
+		<ons-list-item ng-if="user_type=='student'" modifier="chevron" ng-click="menuCodingPageClick()" style="background:#fed287;color: #fff;">
+			{{vocabulary[lang]['Coding page']}}
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-click="menuEditClickFunc()" style="background:#f6f5f3;">
+			{{vocabulary[lang]['Post list']}}
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-click="menu.setMainPage('profile-page.html', {closeMenu: true})" style="background:#f69791;color: #fff;">
+			{{vocabulary[lang]['Profile page']}}
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-click="menu.setMainPage('app-builder.html', {closeMenu: true})" style="background:#f69791;color: #fff;">
+			App builder
+		</ons-list-item>
+		<ons-list-item ng-if="students_status=='super_student'" modifier="chevron" ng-click="switchStudent()" style="background:#fed587;color: #fff;">
+			Switch student
+		</ons-list-item>
+		<ons-list-item ng-if="user_type=='teacher'" modifier="chevron" ng-click="getGroup()" style="background:#fed587;color: #fff;">
+			Create groups
+		</ons-list-item>
+		<ons-list-item modifier="chevron" ng-click="menuLogoutClickFunc()" style="background:#f6f5f3;">
+			{{vocabulary[lang]['Logout']}}
+		</ons-list-item>
+	  </ons-list>
+<div class="button-bar" style="width:160px;margin:0 auto;margin-bottom: 20px;padding-top: 20px;">
+  <div class="button-bar__item">
+    <input type="radio" name="segment-a" ng-click="changeLang('en')" value="en" checked>
+    <button class="button-bar__button">English</button>
+  </div>
+  <div class="button-bar__item">
+    <input type="radio" name="segment-a" ng-click="changeLang('hb')" value="hb">
+    <button class="button-bar__button">עִברִית</button>
+  </div>
+</div>
+<div class="login" ng-if="students_login">Current user {{students_name}}</div>
+	  <style>
+		.list__header {
+			background-color: #fff;
+			padding: 25px;
+		}
+		.onsen-sliding-menu__menu .page__background{
+			background:#fff!important;
+		}
+	  </style>

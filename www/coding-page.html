@@ -1,0 +1,59 @@
+<ons-page>
+	<h1 class="coding-tree-heading">{{vocabulary[lang]["App's elements tree"]}}<button class="preview-button" ng-click="goToPreview()"><i class="fa fa-eye" aria-hidden="true"></i></button></h1>
+	<div class="coding-tree-wrapper">
+		<ul class="coding-tree-holder" ng-model="item.pages">
+			<li ng-repeat="(key, page) in item.pages"><p>{{page.name}}</p>
+				<ul>
+					<li ng-repeat="elem in page.elems" ng-if="elem.type=='form'"><p class="form_elment">{{elem.name}}</p>
+						<ul>
+							<li ng-repeat="formelem in elem.formelems"><p>{{formelem.name}}</p></li>
+						</ul>
+					</li>
+					<li ng-repeat="elem in page.elems" ng-if="elem.type!='form'"><p>{{elem.name}}</p></li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="coding-tree-holder" ng-model="item.posts">
+			<li ng-repeat="(key, post) in item.posts"><p>{{post.formName+":"+post.name}}</p>
+				<ul>
+					<li ng-repeat="postItem in post.postItems"><p>{{postItem.name}}</p></li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="coding-tree-holder" ng-model="item.singles">
+			<li ng-repeat="(key, single) in item.singles"><p>{{single.postsPage+":"+single.name}}</p>
+				<ul>
+					<li ng-repeat="singleItem in single.singleItems"><p>{{singleItem.name}}</p></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="codelines_holder">
+		<div class="line_in_code"></div>
+		<p ng-repeat="line in codelines track by $index" class="codeline"><span>{{$index+1}}.</span>{{line}}</p>
+	</div>
+	<ul ng-if="itemNotClicked" id="suggestionHolder">
+		<li ng-if="includeWordArray(suggestionArray.page)"><p><img height="30" src="img/page.png" style="margin-right:10px;"/>Page<span class="hebrew-text">הוסף דף וטקסט לאפליקציה</span></p>
+			<ul>
+				<li ng-if="includeWord(command)" ng-repeat="(key,command) in suggestionArray.page" ng-click="completeText(command)">{{command}}<span class="hebrew-text">{{sugTransalationArray.page[key]}}</span></li>
+			</ul>
+		</li>
+		<li ng-if="includeWordArray(suggestionArray.form)"><p><img height="30" src="img/form.png" style="margin-right:10px;"/>Form<span class="hebrew-text">הוסף טופס קבלת מידע ממשתמש</span></p>
+			<ul>
+				<li ng-if="includeWord(command)" ng-repeat="(key,command) in suggestionArray.form" ng-click="completeText(command)">{{command}}<span class="hebrew-text">{{sugTransalationArray.form[key]}}</span></li>
+			</ul>
+		</li>
+		<li ng-if="includeWordArray(suggestionArray.postpage)"><p><img height="30" src="img/posts.png" style="margin-right:10px;"/>Posts page<span class="hebrew-text">הצג מידע שמשתמש הוסיף לטופס</span></p>
+			<ul>
+				<li ng-if="includeWord(command)" ng-repeat="(key,command) in suggestionArray.postpage" ng-click="completeText(command)">{{command}}<span class="hebrew-text">{{sugTransalationArray.postpage[key]}}</span></li>
+			</ul>
+		</li>
+		<li ng-if="includeWordArray(suggestionArray.singlepost)"><p><img height="30" src="img/posts.png" style="margin-right:10px;"/>Single post page</p>
+			<ul>
+				<li ng-if="includeWord(command)" ng-repeat="(key,command) in suggestionArray.singlepost" ng-click="completeText(command)">{{command}}</li>
+			</ul>
+		</li>
+	</ul>
+	<input type="text" ng-model="codeline.newcode" class="codeline-text-field"/>
+	<button ng-click="startExec()" class="codeline-button">Go</button>
+</ons-page>

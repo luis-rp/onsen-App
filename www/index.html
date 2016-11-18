@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
+	<link rel="stylesheet" href="lib/style.css"/>
+	<script type="text/javascript" src="cordova.js"></script>
+    <script src="lib/onsen/js/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="lib/app.js"></script>
+    <script src="lib/builder.js"></script>
+  </head>
+  <body>
+	<div ng-controller="menuController">
+		<ons-sliding-menu
+			main-page="start-page.html"
+			menu-page="menu.html"
+			side="left"
+			var="menu"
+			swipeable={{swappable}}>
+		</ons-sliding-menu>
+		<div id="loader" style="display:none;">
+			<div></div>
+		</div>
+	</div>
+	<!--<script src="https://maps.googleapis.com/maps/api/js?callback=initMaps" ></script>-->
+	<!--<script type="text/ons-template" id="get-photo-dialog.html">
+	  <ons-alert-dialog animation="default" cancelable>
+		<div class="alert-dialog-title">Warning!</div>
+		<div class="alert-dialog-content">
+		  An error has occurred!
+		</div>
+		<div class="alert-dialog-footer">
+		  <button class="alert-dialog-button">OK</button>
+		</div>
+	  </ons-alert-dialog>
+	</script>-->
+  </body>
+</html>

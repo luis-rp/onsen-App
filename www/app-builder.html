@@ -1,0 +1,126 @@
+<ons-page ng-controller="builderController">
+	<h2 class="menu-title lessons-title"><i class="fa fa-bars" ng-click="menu.toggleMenu()" style="margin-right:10px;"></i>{{vocabulary[lang]['App builder']}}</h2>
+	<div style="clear:both;"></div>
+	<h1 class="coding-tree-heading" style="margin-top:50px;">{{vocabulary[lang]['App builder']}}<button class="preview-button" ng-click="goToBlockPreview()"><i class="fa fa-eye" aria-hidden="true"></i></button></h1>
+	<div class="code-blocks-container">
+		<button class="add-main-blocks" ng-click="addBlockDialogue('mainBlock')">+</button>
+		<ul class="page-blocks coding-blocks-list">
+			<li ng-repeat="(key,page) in blocks.pages">
+				<div class="page-block block-header">
+					<button class="move-up-elem" ng-click="movePageUp(key,key2)">&#9650;</button>
+					<button class="move-down-elem" ng-click="movePageDown(key,key2)">&#9660;</button>
+					<h1>{{vocabulary[lang]['Page block']}}</h1>
+					<h2>{{page['Title']}}</h2>
+					<span class="sub-blocks-expander">-</span>
+					<button class="block-edit" ng-click="editBlockDialogue('pageBlock',key)">{{vocabulary[lang]['Edit']}}</button>
+					<button class="add-sub-blocks-but" ng-click="addBlockDialogue('pageBlock',key)">{{vocabulary[lang]['Add blocks']}}</button>
+				</div>
+				<ul>
+					<li ng-repeat="(key2,elem) in page['Elements']">
+						<div class="page-block block-header" ng-if="elem['type']=='Image'">
+							<button class="move-up-elem" ng-click="movePageElemUp(key,key2)">&#9650;</button>
+							<button class="move-down-elem" ng-click="movePageElemDown(key,key2)">&#9660;</button>
+							<h1>Image block</h1>
+							<img width=150 src="{{elem['url']}}"/>
+							<button class="block-edit" ng-click="editBlockDialogue('pageImageBlock',key,key2)">{{vocabulary[lang]['Edit']}}</button>
+						</div>
+						<div class="page-block block-header" ng-if="elem['type']=='Text'">
+							<button class="move-up-elem" ng-click="movePageElemUp(key,key2)">&#9650;</button>
+							<button class="move-down-elem" ng-click="movePageElemDown(key,key2)">&#9660;</button>
+							<h1>{{vocabulary[lang]['Text block']}}</h1>
+							<h2>{{elem['text']}}</h2>
+							<button class="block-edit" ng-click="editBlockDialogue('pageTextBlock',key,key2)">{{vocabulary[lang]['Edit']}}</button>
+						</div>
+						<div class="page-block block-header" ng-if="elem['type']=='Form'">
+							<button class="move-up-elem" ng-click="movePageElemUp(key,key2)">&#9650;</button>
+							<button class="move-down-elem" ng-click="movePageElemDown(key,key2)">&#9660;</button>
+							<h1>{{vocabulary[lang]['Form block']}}</h1>
+							<h2>{{elem['name']}}</h2>
+							<button class="block-edit" ng-click="editBlockDialogue('pageFormsBlock',key,key2)">{{vocabulary[lang]['Edit']}}</button>
+							<button class="add-sub-blocks-but" ng-click="addBlockDialogue('pageFormsBlock',key,key2)">{{vocabulary[lang]['Add blocks']}}</button>
+						</div>
+						<ul ng-if="elem['type']=='Form'">
+							<li ng-repeat="(key3,formElem) in elem['elems']">
+								<div class="page-block block-header">
+									<button class="move-up-elem" ng-click="movePageFormElemUp(key,key2,key3)">&#9650;</button>
+									<button class="move-down-elem" ng-click="movePageFormElemDown(key,key2,key3)">&#9660;</button>
+									<h1>Form element. Type: {{formElem['type']}} {{key3}}</h1>
+									<img ng-if="formElem['type']=='image'" width=150 src="{{formElem['data']}}"/>
+									<h2 ng-if="formElem['type']=='text'||formElem['type']=='text-input'||formElem['type']=='textarea'">{{formElem['data']}}</h2>
+									<a ng-if="formElem['type']=='video-input'" href="{{formElem['data']}}">Video link</a>
+									<div class="option-holder" ng-if="formElem['type']=='select'||formElem['type']=='check-box'||formElem['type']=='radio-select'">
+										<h3>Element options:</h3>
+										<ul>
+											<li ng-repeat="option in formElem['data']">{{option}}</li>
+										</ul>
+									</div>
+									<button class="block-edit" ng-click="editBlockDialogue('pageFormsElemBlock',key,key2,key3)">{{vocabulary[lang]['Edit']}}</button>
+								</div>
+							</li>
+						</ul>
+						<div class="page-block block-header" ng-if="elem['type']=='Button'">
+							<button class="move-up-elem" ng-click="movePageElemUp(key,key2)">&#9650;</button>
+							<button class="move-down-elem" ng-click="movePageElemDown(key,key2)">&#9660;</button>
+							<h1>{{vocabulary[lang]['Button block']}}</h1>
+							<button>{{elem['text']}}</button>
+							<button class="block-edit" ng-click="editBlockDialogue('pageTextBlock',key,key2)">{{vocabulary[lang]['Edit']}}</button>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li ng-repeat="(key,posts) in blocks.posts">
+				<div class="posts-block block-header">
+					<button class="move-up-elem" ng-click="movePostsUp(key)">&#9650;</button>
+					<button class="move-down-elem" ng-click="movePostsDown(key)">&#9660;</button>
+					<h1>{{vocabulary[lang]['Posts block']}}</h1>
+					<h2>{{blocks.pages[posts['Page']]['Title']}}:{{blocks.pages[posts['Page']]['Elements'][posts['Form']]['name']}}:{{posts['Title']}}</h2>
+					<span class="sub-blocks-expander">-</span>
+					<button class="block-edit" ng-click="editBlockDialogue('postsBlock',key)">{{vocabulary[lang]['Edit']}}</button>
+					<button class="add-sub-blocks-but" ng-click="addBlockDialogue('postsBlock',key)">{{vocabulary[lang]['Add blocks']}}</button>
+				</div>
+				<ul>
+					<li ng-repeat="(key2,postsElem) in posts['elems']">
+						<button class="move-up-elem" ng-click="movePostsElemUp(key,key2)">&#9650;</button>
+						<button class="move-down-elem" ng-click="movePostsElemDown(key,key2)">&#9660;</button>
+						<div class="page-block block-header">
+							<h1>{{blocks.pages[blocks.posts[currentId]['Page']]['Elements'][blocks.posts[currentId]['Form']]['elems'][postsElem['formElemId']]['type']}} {{postsElem['formElemId']}}</h1>
+							<h2>Displayed as {{postsElem['display']}}</h2>
+							<button class="block-edit" ng-click="editBlockDialogue('postsElemBlock',key,key2)">{{vocabulary[lang]['Edit']}}</button>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li ng-repeat="(key,single) in blocks.single">
+				<div class="single-block block-header">
+					<button class="move-up-elem" ng-click="moveSingleUp(key)">&#9650;</button>
+					<button class="move-down-elem" ng-click="moveSingleDown(key)">&#9660;</button>
+					<h1>Single post block</h1>
+					<h2>{{single['Title']}}</h2>
+					<span class="sub-blocks-expander">-</span>
+					<button class="block-edit" ng-click="editBlockDialogue('singleBlock',key)">{{vocabulary[lang]['Edit']}}</button>
+					<button class="add-sub-blocks-but" ng-click="addBlockDialogue('singleBlock',key)">{{vocabulary[lang]['Add blocks']}}</button>
+				</div>
+				<ul>
+					<li ng-repeat="(key2,singleElem) in single['elems']">
+						<div class="page-block block-header">
+							<button class="move-up-elem" ng-click="moveSingleElemUp(key,key2)">&#9650;</button>
+							<button class="move-down-elem" ng-click="moveSingleElemDown(key,key2)">&#9660;</button>
+							<h1>{{singleElem['formElemId']}}</h1>
+							<h2>Displayed as {{singleElem['display']}}</h2>
+							<button class="block-edit" ng-click="editBlockDialogue('singleElemBlock',key,key2)">{{vocabulary[lang]['Edit']}}</button>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li ng-repeat="(key,auth) in blocks.auth">
+				<div class="auth-block block-header">
+					<h1>Authentication block</h1>
+					<h2>{{auth['Title']}}</h2>
+					<span class="sub-blocks-expander">-</span>
+					<button class="block-edit" ng-click="editBlockDialogue('authBlock',key)">{{vocabulary[lang]['Edit']}}</button>
+					<button class="add-sub-blocks-but">{{vocabulary[lang]['Add blocks']}}</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+</ons-page>
